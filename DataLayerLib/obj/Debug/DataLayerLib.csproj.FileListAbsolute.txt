@@ -1,0 +1,8 @@
+E:\Shubham\CompanyManagement\DataLayerLib\bin\Debug\DataLayerLib.dll.config
+E:\Shubham\CompanyManagement\DataLayerLib\bin\Debug\DataLayerLib.dll
+E:\Shubham\CompanyManagement\DataLayerLib\bin\Debug\DataLayerLib.pdb
+E:\Shubham\CompanyManagement\DataLayerLib\obj\Debug\DataLayerLib.csprojResolveAssemblyReference.cache
+E:\Shubham\CompanyManagement\DataLayerLib\obj\Debug\DataLayerLib.dll
+E:\Shubham\CompanyManagement\DataLayerLib\obj\Debug\DataLayerLib.pdb
+E:\Shubham\CompanyManagement\DataLayerLib\obj\Debug\DataLayerLib.Resource.resources
+E:\Shubham\CompanyManagement\DataLayerLib\obj\Debug\DataLayerLib.csproj.GenerateResource.Cache
