@@ -1,0 +1,12 @@
+E:\Shubham\clone company\company-management\CompanyManagementBL\bin\Debug\CompanyManagementBL.dll
+E:\Shubham\clone company\company-management\CompanyManagementBL\bin\Debug\CompanyManagementBL.pdb
+E:\Shubham\clone company\company-management\CompanyManagementBL\bin\Debug\DataLayerLib.dll
+E:\Shubham\clone company\company-management\CompanyManagementBL\bin\Debug\DataLayerLib.pdb
+E:\Shubham\clone company\company-management\CompanyManagementBL\obj\Debug\CompanyManagementBL.csprojResolveAssemblyReference.cache
+E:\Shubham\clone company\company-management\CompanyManagementBL\obj\Debug\CompanyManagementBL.dll
+E:\Shubham\clone company\company-management\CompanyManagementBL\obj\Debug\CompanyManagementBL.pdb
+E:\Shubham\clone company\company-management\CompanyManagementBL\bin\Debug\AutoMapper.dll
+E:\Shubham\clone company\company-management\CompanyManagementBL\bin\Debug\System.ValueTuple.dll
+E:\Shubham\clone company\company-management\CompanyManagementBL\bin\Debug\AutoMapper.pdb
+E:\Shubham\clone company\company-management\CompanyManagementBL\bin\Debug\AutoMapper.xml
+E:\Shubham\clone company\company-management\CompanyManagementBL\bin\Debug\System.ValueTuple.xml

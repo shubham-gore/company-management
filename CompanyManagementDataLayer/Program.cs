@@ -5,18 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CompanyManagementBL;
+using CompanyManagementBL.Entities;
 
 namespace CompanyManagementDataLayer
 {
     class Program
     {
-       
+
         static void Main(string[] args)
         {
-            
+
             //Program p1 = new Program();
-            DataManager dataManager = new DataManager();
-            string status = null;
+            //DataManager dataManager = new DataManager();
+            //string status = null;
             /*//All Projects
             IEnumerable<Project> projectList = dataManager.GetAllProjects();
             Console.WriteLine("All Projects-");
@@ -232,7 +233,7 @@ namespace CompanyManagementDataLayer
               Console.WriteLine("Enter data for new project");
               Console.WriteLine("Enter Project Name:");
               newProject.ProjectName= Console.ReadLine();
-              Console.WriteLine("Enter Project Status(1/2/3):\n 1.not started\n 2.active\n 3.delayed");
+              Console.WriteLine("Enter Project Status(1/3/4):\n 1.active\n 3.delayed\n 4.not started");
               newProject.StatusId = int.Parse(Console.ReadLine());
 
               Console.WriteLine("Enter Department Id:");
@@ -279,7 +280,7 @@ namespace CompanyManagementDataLayer
             int projectId = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter Task Id:");
             task.TaskId = int.Parse(Console.ReadLine());
-            Console.WriteLine("Enter task Status(1/2/3):\n 1.not started\n 2.active\n 3.delayed");
+            Console.WriteLine("Enter task Status(1/3/4):\n 1.active\n 3.delayed\n 4.not started");
             int statusId = int.Parse(Console.ReadLine());
             dataManager.CreateTaskInProject(task, projectId, statusId);
 
@@ -315,19 +316,168 @@ namespace CompanyManagementDataLayer
             Console.WriteLine("Enter Technology Id:");
             int technologyId = int.Parse(Console.ReadLine());
             dataManager.DeleteTechnology(technologyId);
-            */
+
+            //delete task
+            Console.WriteLine("Enter Task Id:");
+            int taskId = int.Parse(Console.ReadLine());
+            dataManager.DeleteTask(taskId);
+
             //delete project
             Console.WriteLine("Enter Project Id:");
             int projectId = int.Parse(Console.ReadLine());
             dataManager.DeleteProject(projectId);
+            */
 
+            BusinessLayer businessLayer = new BusinessLayer();
+            int projectId, technologyId, employeeId;
+            /*businessLayer.GetCompany();
+            
+            businessLayer.GetAllProjects();
+            businessLayer.GetAllTechnologies();
+            Console.WriteLine("Enter Project Id:");
+            projectId=int.Parse(Console.ReadLine());
+            businessLayer.GetEmployeeCountForProject(projectId);
+            businessLayer.GetAllEmployeesForProject(projectId);
+            businessLayer.GetAllDelayedProjects();
+            Console.WriteLine("Enter Employee Id:");
+            employeeId = int.Parse(Console.ReadLine());
+            businessLayer.GetAllProjectsForEmployee(employeeId);
+            Console.WriteLine("Enter Employee Id:");
+            employeeId = int.Parse(Console.ReadLine());
+            businessLayer.GetAllTasksForEmployee(employeeId);
+            Console.WriteLine("Enter Employee Id:");
+            employeeId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter Technology Id:");
+            technologyId = int.Parse(Console.ReadLine());
+            businessLayer.GetAllTechnologyTasksForEmployee(technologyId,projectId);
+            Console.WriteLine("Enter Technology Id:");
+            technologyId = int.Parse(Console.ReadLine());
+            businessLayer.GetAllTechnologyProjects(technologyId);
+            Console.WriteLine("Enter Project Id:");
+            projectId = int.Parse(Console.ReadLine());
+            businessLayer.GetAllActiveTasksForProject(projectId);
+            Console.WriteLine("Enter Employee Id:");
+            employeeId = int.Parse(Console.ReadLine());
+            businessLayer.GetAllTechnologiesForEmployee(employeeId);
+            Console.WriteLine("Enter Employee Id:");
+            employeeId = int.Parse(Console.ReadLine());
+            businessLayer.GetProjectCountForEmployee(employeeId);
+            Console.WriteLine("Enter Employee Id:");
+            employeeId = int.Parse(Console.ReadLine());
+            businessLayer.GetAllActiveProjectsManagedByEmployee(employeeId);
+            Console.WriteLine("Enter Employee Id:");
+            employeeId = int.Parse(Console.ReadLine());
+            businessLayer.GetAllDelayedTasksForEmployee(employeeId);
+
+            Console.ReadLine();*/
+            /*
+            //Add Project
+            BOProject newProject = new BOProject();
+
+            Console.WriteLine("Enter data for new project");
+            Console.WriteLine("Enter Project Name:");
+            newProject.ProjectName = Console.ReadLine();
+            Console.WriteLine("Enter Project Status(1/3/4):\n 1.active\n 3.delayed\n 4.not started");
+            newProject.StatusId = int.Parse(Console.ReadLine());
+
+            Console.WriteLine("Enter Department Id:");
+            newProject.DepartmentId = int.Parse(Console.ReadLine());
+            businessLayer.AddProject(newProject);
+            
+            //Add Technology
+            BOTechnology newBOTechnology = new BOTechnology();
+            Console.WriteLine("Enter Technology Name:");
+            newBOTechnology.TechnologyName = Console.ReadLine();
+            businessLayer.AddTechnology(newBOTechnology);
+            
+
+            //Add employee
+            BOEmployee newBOEmployee = new BOEmployee();
+            int departmentHeadId;
+            Console.WriteLine("Enter data for new employee");
+            Console.WriteLine("Enter Employee Name:");
+            newBOEmployee.EmployeeName = Console.ReadLine();
+            Console.WriteLine("Enter Designation:");
+            newBOEmployee.Designation = Console.ReadLine();
+            Console.WriteLine("Enter DepartmentID:");
+            newBOEmployee.DepartmentId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter Department Head Id:");
+            //newBOEmployee.DepartmentHeadId = int.Parse(Console.ReadLine());
+            int.TryParse(Console.ReadLine(), out departmentHeadId);
+            if (departmentHeadId == 0)
+                newBOEmployee.DepartmentHeadId = null;
+            else
+                newBOEmployee.DepartmentHeadId = departmentHeadId;
+            businessLayer.AddEmployee(newBOEmployee);
+            
+            //assign employee to project
+            Console.WriteLine("Enter Employee Id:");
+            employeeId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter Project Id:");
+            projectId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter Role Id:");
+            int roleId = int.Parse(Console.ReadLine());
+            businessLayer.AssignEmployeeToProject(employeeId, projectId, roleId);
+            
+            //create task in project
+            BOTask bOTask = new BOTask();
+            Console.WriteLine("Enter Project Id:");
+            projectId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter Task Id:");
+            bOTask.TaskId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter task Status(1/3/4):\n 1.active\n 3.delayed\n 4.not started");
+            int statusId = int.Parse(Console.ReadLine());
+            businessLayer.CreateTaskInProject(bOTask, projectId, statusId);
+            
+            //assign technology to task
+            Console.WriteLine("Enter Task Id:");
+            int taskId = int.Parse(Console.ReadLine());
+            Console.WriteLine("Enter Technology Id:");
+            technologyId = int.Parse(Console.ReadLine());
+            businessLayer.AssignTechnologyToTask(technologyId, taskId);
+            
+            //update technology for task
+            Console.WriteLine("Enter Task Id:");
+            int taskId = int.Parse(Console.ReadLine());
+            char choice = 'y';
+            technologyId=0;
+            List<int> technologyIDs = new List<int>();
+            while (choice == 'y' || choice == 'Y')
+            {
+                Console.WriteLine("Enter Technology Id:");
+                technologyId = int.Parse(Console.ReadLine());
+                technologyIDs.Add(technologyId);
+                Console.WriteLine("Enter more technologies for the task? (y/n):");
+                choice = Console.ReadLine().ElementAt(0);
+            }
+            businessLayer.UpdateTechnologiesForTask(technologyIDs, taskId);
+            
+            //delete employee
+            Console.WriteLine("Enter Employee Id:");
+            employeeId = int.Parse(Console.ReadLine());
+            businessLayer.DeleteEmployeeFromSystem(employeeId);
+            
+            //delete technology
+            Console.WriteLine("Enter Technology Id:");
+            technologyId = int.Parse(Console.ReadLine());
+            businessLayer.DeleteTechnology(technologyId);
+            
+            //delete task
+            Console.WriteLine("Enter Task Id:");
+            int taskId = int.Parse(Console.ReadLine());
+            businessLayer.DeleteTask(taskId);
+            */
+            //delete project
+            Console.WriteLine("Enter Project Id:");
+            projectId = int.Parse(Console.ReadLine());
+            businessLayer.DeleteProject(projectId);
 
             Console.ReadLine();
         }
 
-       
 
-        
+
+
 
 
     }

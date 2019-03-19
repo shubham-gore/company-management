@@ -9,7 +9,13 @@ namespace DataLayerLib
 {
     public class DataManager
     {
-
+        public Company GetCompany()
+        {
+            CDDataContext db = new CDDataContext();
+            Company firstCompany = (from company in db.Companies
+                                    select company).First();
+            return firstCompany;
+        }
 
         public IEnumerable<Project> GetAllProjects()
         {

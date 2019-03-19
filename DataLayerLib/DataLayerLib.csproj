@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CD.cs">
+      <DependentUpon>CD.dbml</DependentUpon>
+    </Compile>
     <Compile Include="CD.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -6,3 +6,18 @@ E:\Shubham\CompanyManagement\CompanyManagementDataLayer\obj\Debug\CompanyManagem
 E:\Shubham\CompanyManagement\CompanyManagementDataLayer\obj\Debug\CompanyManagementDataLayer.pdb
 E:\Shubham\CompanyManagement\CompanyManagementDataLayer\bin\Debug\DataLayerLib.dll
 E:\Shubham\CompanyManagement\CompanyManagementDataLayer\bin\Debug\DataLayerLib.pdb
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\bin\Debug\CompanyManagementDataLayer.exe.config
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\obj\Debug\CompanyManagementDataLayer.exe
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\obj\Debug\CompanyManagementDataLayer.pdb
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\obj\Debug\CompanyManagementDataLayer.csprojResolveAssemblyReference.cache
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\bin\Debug\CompanyManagementDataLayer.exe
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\bin\Debug\CompanyManagementDataLayer.pdb
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\bin\Debug\CompanyManagementBL.dll
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\bin\Debug\AutoMapper.dll
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\bin\Debug\DataLayerLib.dll
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\bin\Debug\System.ValueTuple.dll
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\bin\Debug\CompanyManagementBL.pdb
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\bin\Debug\AutoMapper.pdb
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\bin\Debug\AutoMapper.xml
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\bin\Debug\DataLayerLib.pdb
+E:\Shubham\clone company\company-management\CompanyManagementDataLayer\bin\Debug\System.ValueTuple.xml
