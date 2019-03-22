@@ -418,7 +418,7 @@ namespace CompanyManagementDataLayer
             Console.WriteLine("Enter Role Id:");
             int roleId = int.Parse(Console.ReadLine());
             businessLayer.AssignEmployeeToProject(employeeId, projectId, roleId);
-            
+            */
             //create task in project
             BOTask bOTask = new BOTask();
             Console.WriteLine("Enter Project Id:");
@@ -428,7 +428,7 @@ namespace CompanyManagementDataLayer
             Console.WriteLine("Enter task Status(1/3/4):\n 1.active\n 3.delayed\n 4.not started");
             int statusId = int.Parse(Console.ReadLine());
             businessLayer.CreateTaskInProject(bOTask, projectId, statusId);
-            
+            /*
             //assign technology to task
             Console.WriteLine("Enter Task Id:");
             int taskId = int.Parse(Console.ReadLine());
@@ -466,12 +466,12 @@ namespace CompanyManagementDataLayer
             Console.WriteLine("Enter Task Id:");
             int taskId = int.Parse(Console.ReadLine());
             businessLayer.DeleteTask(taskId);
-            */
+            
             //delete project
             Console.WriteLine("Enter Project Id:");
             projectId = int.Parse(Console.ReadLine());
             businessLayer.DeleteProject(projectId);
-
+            */
             Console.ReadLine();
         }
 

@@ -262,7 +262,7 @@ namespace DataLayerLib
             db.SubmitChanges();
         }
 
-        public void AssignEmployeeToProject(int employeeID, int projectID, int roleId)
+        public void AssignEmployeeToProject(int employeeID, int projectID, int roleId, int maxProjectCountManagedByEmployee, int maxProjectCountByEmployee)
         {
             CDDataContext db = new CDDataContext();
             EmployeeProject employeeProjectObj = new EmployeeProject();
@@ -274,7 +274,38 @@ namespace DataLayerLib
             {
                 throw new Exception(checkCompulsoryFields);
             }
-            db.EmployeeProjects.InsertOnSubmit(employeeProjectObj);
+
+            if (roleId == (int)Role.Manager)
+            {
+                int projectCountManagedByEmployee = (from employeeProject in db.EmployeeProjects
+                                                     where ((employeeProject.EmployeeId == employeeID) &&
+                                                     (employeeProject.RoleId == (int)Role.Manager))
+                                                     select employeeProject).Count();
+                if (projectCountManagedByEmployee < maxProjectCountManagedByEmployee)
+                {
+                    db.EmployeeProjects.InsertOnSubmit(employeeProjectObj);
+                }
+                else
+                {
+                    throw new Exception(Resource.MaxProjectsManagedByEmployee);
+                }
+            }
+            else
+            {
+                int projectCountByEmployee = (from employeeProject in db.EmployeeProjects
+                                              where ((employeeProject.EmployeeId == employeeID) &&
+                                              (employeeProject.RoleId != (int)Role.Manager))
+                                              select employeeProject).Count();
+                if (projectCountByEmployee < maxProjectCountByEmployee)
+                {
+                    db.EmployeeProjects.InsertOnSubmit(employeeProjectObj);
+                }
+                else
+                {
+                    throw new Exception(Resource.MaxProjectsByEmployee);
+                }
+            }
+
             db.SubmitChanges();
         }
 
@@ -290,26 +321,72 @@ namespace DataLayerLib
             {
                 throw new Exception(checkCompulsoryFields);
             }
+
+            Project projectObj = (from project in db.Projects
+                                  where project.ProjectId == projectID
+                                  select project).First();
+
+            if (projectObj.StatusId == (int)Status.Completed)
+            {
+                throw new Exception(Resource.ProjectCompleted);
+            }
+
             db.ProjectTasks.InsertOnSubmit(projectTaskObj);
             db.SubmitChanges();
         }
 
-        public void AssignTechnologyToTask(int technologyID, int taskID)
+        public void AssignTechnologyToTask(int technologyID, int taskID, int maxTechnologyForTask)
         {
             CDDataContext db = new CDDataContext();
             TaskTechnology taskTechnologyObj = new TaskTechnology();
             taskTechnologyObj.TechnologyId = technologyID;
             taskTechnologyObj.TaskId = taskID;
+            bool projectTechnologyFound = false;
             string checkCompulsoryFields = ValidationHelper.CheckCompulsoryTaskTechnologyColumns(taskTechnologyObj);
             if (checkCompulsoryFields != Resource.AllFieldsPresent)
             {
                 throw new Exception(checkCompulsoryFields);
             }
-            db.TaskTechnologies.InsertOnSubmit(taskTechnologyObj);
-            db.SubmitChanges();
+
+            int technologyCountForTask = (from taskTechnology in db.TaskTechnologies
+                                          where taskTechnology.TaskId == taskID
+                                          select taskTechnology).Count();
+            if (technologyCountForTask > maxTechnologyForTask)
+            {
+                throw new Exception(Resource.MaxTechnologyAssigned);
+            }
+
+            IEnumerable<ProjectTask> projectTaskList = from projectTask in db.ProjectTasks
+                                                       where projectTask.TaskId == taskID
+                                                       select projectTask;
+
+
+            foreach (ProjectTask projectTask in projectTaskList)
+            {
+                foreach (ProjectTechnology projectTechnology in db.ProjectTechnologies)
+                {
+                    if ((projectTask.ProjectId == projectTechnology.ProjectId) && (projectTechnology.TechnologyId == technologyID))
+                    {
+                        projectTechnologyFound = true;
+                    }
+                }
+
+            }
+
+
+            if (projectTechnologyFound == true)
+            {
+                db.TaskTechnologies.InsertOnSubmit(taskTechnologyObj);
+                db.SubmitChanges();
+            }
+            else
+            {
+                throw new Exception(Resource.TechnologyMissingInProject);
+            }
+
         }
 
-        public void UpdateTechnologiesForTask(List<int> technologyIDs, int taskID)
+        public void UpdateTechnologiesForTask(List<int> technologyIDs, int taskID, int maxTechnologyForTask)
         {
             CDDataContext db = new CDDataContext();
 
@@ -328,7 +405,7 @@ namespace DataLayerLib
             }
             foreach (int technologyId in technologyIDs)
             {
-                AssignTechnologyToTask(technologyId, taskID);
+                AssignTechnologyToTask(technologyId, taskID, maxTechnologyForTask);
             }
         }
         public void DeleteEmployeeFromSystem(int employeeID)
@@ -359,12 +436,12 @@ namespace DataLayerLib
             Employee employeeObj = (from employee in db.Employees
                                     where employee.EmployeeId == employeeID
                                     select employee).First();
-                db.Employees.DeleteOnSubmit(employeeObj);
-                db.SubmitChanges();
-            
+            db.Employees.DeleteOnSubmit(employeeObj);
+            db.SubmitChanges();
+
         }
 
-        public void DeleteTechnology(int technologyId)
+        public void DeleteTechnology(int technologyId, int maxProjectsForDeleteTechnology)
         {
             CDDataContext db = new CDDataContext();
             string checkTechnologyIdValidity = ValidationHelper.CheckTechnologyIdValidity(technologyId);
@@ -372,9 +449,16 @@ namespace DataLayerLib
             {
                 throw new Exception(checkTechnologyIdValidity);
             }
+
             IEnumerable<ProjectTechnology> projectListForTechnology = from projectTechnology in db.ProjectTechnologies
                                                                       where projectTechnology.TechnologyId == technologyId
                                                                       select projectTechnology;
+            int projectCountForTechnology = projectListForTechnology.Count();
+            if (projectCountForTechnology > 2)
+            {
+                throw new Exception(Resource.ProjectCountExceeded);
+            }
+
             if (projectListForTechnology != null)
             {
                 db.ProjectTechnologies.DeleteAllOnSubmit(projectListForTechnology);
@@ -389,15 +473,15 @@ namespace DataLayerLib
             TechnologyMaster technologyObj = (from technology in db.TechnologyMasters
                                               where technology.TechnologyId == technologyId
                                               select technology).First();
-                db.TechnologyMasters.DeleteOnSubmit(technologyObj);
-                db.SubmitChanges();
-            
+            db.TechnologyMasters.DeleteOnSubmit(technologyObj);
+            db.SubmitChanges();
+
         }
 
         public void DeleteTask(int taskID)
         {
             CDDataContext db = new CDDataContext();
-            string checkTaskIdValidity=ValidationHelper.CheckTaskIdValidity(taskID);
+            string checkTaskIdValidity = ValidationHelper.CheckTaskIdValidity(taskID);
             if (checkTaskIdValidity != Resource.TaskIdFound)
             {
                 throw new Exception(checkTaskIdValidity);
@@ -405,6 +489,15 @@ namespace DataLayerLib
             IEnumerable<EmployeeTask> employeeListForTask = from employeeTask in db.EmployeeTasks
                                                             where employeeTask.TaskId == taskID
                                                             select employeeTask;
+
+            foreach (EmployeeTask employeeTaskObj in employeeListForTask)
+            {
+                if (employeeTaskObj.StatusId == (int)Status.Active)
+                {
+                    throw new Exception(Resource.TaskActive);
+                }
+            }
+
             if (employeeListForTask != null)
             {
                 db.EmployeeTasks.DeleteAllOnSubmit(employeeListForTask);
@@ -412,6 +505,15 @@ namespace DataLayerLib
             IEnumerable<ProjectTask> projectListForTask = from projectTask in db.ProjectTasks
                                                           where projectTask.TaskId == taskID
                                                           select projectTask;
+
+            foreach (ProjectTask projectTaskObj in projectListForTask)
+            {
+                if (projectTaskObj.StatusId == (int)Status.Active)
+                {
+                    throw new Exception(Resource.TaskActive);
+                }
+            }
+
             if (projectListForTask != null)
             {
                 db.ProjectTasks.DeleteAllOnSubmit(projectListForTask);
@@ -419,6 +521,7 @@ namespace DataLayerLib
             IEnumerable<TaskTechnology> technologyListForTask = from taskTechnology in db.TaskTechnologies
                                                                 where taskTechnology.TaskId == taskID
                                                                 select taskTechnology;
+
             if (technologyListForTask != null)
             {
                 db.TaskTechnologies.DeleteAllOnSubmit(technologyListForTask);
@@ -433,7 +536,7 @@ namespace DataLayerLib
         public void DeleteProject(int projectID)
         {
             CDDataContext db = new CDDataContext();
-            string checkProjectIdValidity=ValidationHelper.CheckProjectIdValidity(projectID);
+            string checkProjectIdValidity = ValidationHelper.CheckProjectIdValidity(projectID);
             if (checkProjectIdValidity != Resource.ProjectIdFound)
             {
                 throw new Exception(checkProjectIdValidity);
@@ -441,6 +544,15 @@ namespace DataLayerLib
             IEnumerable<ProjectTask> taskListForProject = from projectTask in db.ProjectTasks
                                                           where projectTask.ProjectId == projectID
                                                           select projectTask;
+
+            foreach (ProjectTask projectTaskObj in taskListForProject)
+            {
+                if (projectTaskObj.StatusId == (int)Status.Active)
+                {
+                    throw new Exception(Resource.ProjectActive);
+                }
+            }
+
             if (taskListForProject != null)
             {
                 db.ProjectTasks.DeleteAllOnSubmit(taskListForProject);
@@ -448,6 +560,7 @@ namespace DataLayerLib
             IEnumerable<ProjectTechnology> technologyListForProject = from projectTechnology in db.ProjectTechnologies
                                                                       where projectTechnology.ProjectId == projectID
                                                                       select projectTechnology;
+
             if (technologyListForProject != null)
             {
                 db.ProjectTechnologies.DeleteAllOnSubmit(technologyListForProject);
@@ -469,8 +582,15 @@ namespace DataLayerLib
             Project projectObj = (from project in db.Projects
                                   where project.ProjectId == projectID
                                   select project).First();
+
+            if (projectObj.StatusId == (int)Status.Active)
+            {
+                throw new Exception(Resource.ProjectActive);
+            }
+
             db.Projects.DeleteOnSubmit(projectObj);
             db.SubmitChanges();
         }
+
     }
 }

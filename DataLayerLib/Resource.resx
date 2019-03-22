@@ -135,6 +135,24 @@
   <data name="EmployeeNameMissing" xml:space="preserve">
     <value>Employee Name is Missing</value>
   </data>
+  <data name="MaxProjectsByEmployee" xml:space="preserve">
+    <value>Employee working on Maximum number of Projects</value>
+  </data>
+  <data name="MaxProjectsManagedByEmployee" xml:space="preserve">
+    <value>Maximum Number of Projects Managed by Employee</value>
+  </data>
+  <data name="MaxTechnologyAssigned" xml:space="preserve">
+    <value>Max Number of Technology already assigned to Task</value>
+  </data>
+  <data name="ProjectActive" xml:space="preserve">
+    <value>Cannot Delete Active Project</value>
+  </data>
+  <data name="ProjectCompleted" xml:space="preserve">
+    <value>Task cannot be assigned to completed Project</value>
+  </data>
+  <data name="ProjectCountExceeded" xml:space="preserve">
+    <value>Project Count exceeded for deleting technology</value>
+  </data>
   <data name="ProjectIdFound" xml:space="preserve">
     <value>Project Id Found</value>
   </data>
@@ -153,6 +171,9 @@
   <data name="StatusIdMissing" xml:space="preserve">
     <value>StatusId is Missing</value>
   </data>
+  <data name="TaskActive" xml:space="preserve">
+    <value>Cannot Delete Active Task</value>
+  </data>
   <data name="TaskIdFound" xml:space="preserve">
     <value>Task Id Found</value>
   </data>
@@ -164,6 +185,9 @@
   </data>
   <data name="TechnologyIdMissing" xml:space="preserve">
     <value>Technology Id is Missing</value>
+  </data>
+  <data name="TechnologyMissingInProject" xml:space="preserve">
+    <value>Technology not assigned in Project</value>
   </data>
   <data name="TechnologyNameExists" xml:space="preserve">
     <value>Technology Name already Exists</value>

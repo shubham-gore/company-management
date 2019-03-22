@@ -115,6 +115,60 @@ namespace DataLayerLib {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Employee working on Maximum number of Projects.
+        /// </summary>
+        internal static string MaxProjectsByEmployee {
+            get {
+                return ResourceManager.GetString("MaxProjectsByEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximum Number of Projects Managed by Employee.
+        /// </summary>
+        internal static string MaxProjectsManagedByEmployee {
+            get {
+                return ResourceManager.GetString("MaxProjectsManagedByEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max Number of Technology already assigned to Task.
+        /// </summary>
+        internal static string MaxTechnologyAssigned {
+            get {
+                return ResourceManager.GetString("MaxTechnologyAssigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot Delete Active Project.
+        /// </summary>
+        internal static string ProjectActive {
+            get {
+                return ResourceManager.GetString("ProjectActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task cannot be assigned to completed Project.
+        /// </summary>
+        internal static string ProjectCompleted {
+            get {
+                return ResourceManager.GetString("ProjectCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project Count exceeded for deleting technology.
+        /// </summary>
+        internal static string ProjectCountExceeded {
+            get {
+                return ResourceManager.GetString("ProjectCountExceeded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Id Found.
         /// </summary>
         internal static string ProjectIdFound {
@@ -169,6 +223,15 @@ namespace DataLayerLib {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot Delete Active Task.
+        /// </summary>
+        internal static string TaskActive {
+            get {
+                return ResourceManager.GetString("TaskActive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Task Id Found.
         /// </summary>
         internal static string TaskIdFound {
@@ -201,6 +264,15 @@ namespace DataLayerLib {
         internal static string TechnologyIdMissing {
             get {
                 return ResourceManager.GetString("TechnologyIdMissing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Technology not assigned in Project.
+        /// </summary>
+        internal static string TechnologyMissingInProject {
+            get {
+                return ResourceManager.GetString("TechnologyMissingInProject", resourceCulture);
             }
         }
         

@@ -181,8 +181,10 @@ namespace CompanyManagementBL
 
         public void AssignEmployeeToProject(int employeeID, int projectID, int roleId)
         {
+            int maxProjectCountManagedByEmployee = 3;
+            int maxProjectCountByEmployee = 2;
             DataManager dataManager = new DataManager();
-            dataManager.AssignEmployeeToProject(employeeID,projectID,roleId);
+            dataManager.AssignEmployeeToProject(employeeID, projectID, roleId, maxProjectCountManagedByEmployee, maxProjectCountByEmployee);
         }
 
         public void CreateTaskInProject(BOTask bOTask, int projectID, int statusId)
@@ -190,19 +192,21 @@ namespace CompanyManagementBL
             Automapper mapper = new Automapper();
             DataManager dataManager = new DataManager();
             DataLayerLib.Task task = mapper.MapBOTaskToTask(bOTask);
-            dataManager.CreateTaskInProject(task,projectID,statusId);
+            dataManager.CreateTaskInProject(task, projectID, statusId);
         }
 
         public void AssignTechnologyToTask(int technologyID, int taskID)
         {
+            int maxTechnologyForTask = 4;
             DataManager dataManager = new DataManager();
-            dataManager.AssignTechnologyToTask(technologyID,taskID);
+            dataManager.AssignTechnologyToTask(technologyID, taskID, maxTechnologyForTask);
         }
 
         public void UpdateTechnologiesForTask(List<int> technologyIDs, int taskID)
         {
+            int maxTechnologyForTask = 4;
             DataManager dataManager = new DataManager();
-            dataManager.UpdateTechnologiesForTask(technologyIDs,taskID);
+            dataManager.UpdateTechnologiesForTask(technologyIDs, taskID, maxTechnologyForTask);
         }
 
         public void DeleteEmployeeFromSystem(int employeeID)
@@ -213,9 +217,9 @@ namespace CompanyManagementBL
 
         public void DeleteTechnology(int technologyId)
         {
-            //int maxProjectsForDeleteTechnology = 2;
+            int maxProjectsForDeleteTechnology = 2;
             DataManager dataManager = new DataManager();
-            dataManager.DeleteTechnology(technologyId);
+            dataManager.DeleteTechnology(technologyId, maxProjectsForDeleteTechnology);
         }
 
         public void DeleteTask(int taskID)
